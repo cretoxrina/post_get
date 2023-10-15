@@ -35,7 +35,7 @@ create_order_url = "https://api-dev.asadalpay.com/api/orders/create-order"
 
 api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsZWdhbF9lbnRpdHlfaWQiOjcsImNyZWF0ZWRfYXQiOiIyMDIzLTA5LTIxIDA5OjE1OjExLjYwNDQyOSIsInBhc3N3b3JkIjoiOWViZmZkMjQtNzI2Ny00NjZkLTk0MTctZGViMTY4YzZmM2RmIn0.OLy0oUg3rUqWxJp8veLMeOXlbyQrsIJF2BqtsmQYY78"  
 
-@app.post("api/orders/create-order", response_model=OrderResponse, responses={422: {"model": ErrorResponse}})
+@app.post("/api/orders/create-order", response_model=OrderResponse, responses={422: {"model": ErrorResponse}})
 async def create_order(order_data: OrderData):
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -50,7 +50,7 @@ async def create_order(order_data: OrderData):
     else:
         raise HTTPException(status_code=422, detail=response.json())
 
-@app.get("/order/{order_uuid}", response_model=OrderResponse, responses={404: {"model": ErrorResponse}})
+@app.get("/api/order/{order_uuid}", response_model=OrderResponse, responses={404: {"model": ErrorResponse}})
 async def get_order(order_uuid: str):
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -70,3 +70,4 @@ if __name__ == "__main__":
 root = Tk()
 app = OrderGUI(root)
 root.mainloop()
+
